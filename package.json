@@ -1,0 +1,11 @@
+{
+  "name": "wechat-logs-to-pdf",
+  "version": "1.0.0",
+  "description": "Extract chat logs from a WeChat iOS SQLite database and display them in a pretty way",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
