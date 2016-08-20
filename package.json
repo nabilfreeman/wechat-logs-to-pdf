@@ -19,6 +19,7 @@
     "knex-schema": "^2.1.1",
     "mkdirp": "^0.5.1",
     "moment": "^2.14.1",
+    "moment-timezone": "^0.5.5",
     "prompt": "^1.0.0",
     "read-file": "^0.2.0",
     "sqlite3": "^3.1.4"
