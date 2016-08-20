@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<style>
+			.message{
+				margin-bottom:10px;
+				clear:both;
+			}
+			.message .inner{
+				padding:10px;
+				border-radius:5px;
+				box-shadow:0px 1px 0px rgba(255,255,255,0.4), 0px -1px 0px rgba(0,0,0,0.2);
+			}
+			.message .inner.left{
+				background:red;
+				float:left;
+			}
+			.message .inner.right{
+				background:blue;
+				float:right;
+			}
+		</style>
+	</head>
+
+	<body>
+		<h1>WeChat Log</h1>
+		<h2>Chat ID: {{id}}</h2>
+
+		<div class="messages">
+			{{#each data}}
+				<div class="message">
+					<div class="inner {{#if is_self}} right {{else}} left {{/if}}">
+						<div class="text">
+							{{message}}
+						</div>
+						<div class="time">
+							{{created_at}}
+						</div>
+					</div>
+				</div>
+			{{/each}}
+		</div>
+	</body>
+</html>
