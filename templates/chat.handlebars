@@ -1,43 +1,155 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<meta charset="UTF-8">
 		<style>
+			body{
+				font-family:'Helvetica Neue', 'Helvetica', Arial, sans-serif;
+			}
+
+			h1{
+				font-size:21px;
+				margin:0px;
+				padding-top:40px;
+				text-align:center;
+			}
+			h2{
+				font-weight:normal;
+				margin-top:0px;
+				margin-bottom:40px;
+				font-size:13px;
+				color:#BCBCBC;
+				text-align:center;
+			}
+
 			.message{
-				margin-bottom:10px;
-				clear:both;
+				margin-bottom:7px;
+				display:flex;
+				align-items:center;
 			}
-			.message .inner{
-				padding:10px;
+			.message.left{
+				flex-direction:row;
+			}
+			.message.right{
+				flex-direction:row-reverse;
+			}
+
+			.message .flex{
+				flex:1;
+			}
+
+			.message .bubble{
+				max-width:60%;
+				padding:7px;
 				border-radius:5px;
-				box-shadow:0px 1px 0px rgba(255,255,255,0.4), 0px -1px 0px rgba(0,0,0,0.2);
+				box-shadow:inset 0px 1px 0px rgba(255,255,255,0.2), inset 0px -1px 0px rgba(0,0,0,0.1);
+				font-size:13px;
+				display:flex;
+				align-items:center;
 			}
-			.message .inner.left{
-				background:red;
-				float:left;
+			.message.left .bubble{
+				background:#EBEBEB;
 			}
-			.message .inner.right{
-				background:blue;
-				float:right;
+			.message.right .bubble{
+				background:#A0E75A;
+			}
+			.message .bubble i{
+				margin-right:5px;
+			}
+
+			.message .time{
+				font-size:10px;
+				color:#BCBCBC;
+				margin:0px 10px;
+			}
+
+			.message .bubble.activity{
+				background:transparent;
+				color:#BCBCBC;
+				border:1px solid #BCBCBC;
+				box-shadow:none;
 			}
 		</style>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css">
 	</head>
 
 	<body>
-		<h1>WeChat Log</h1>
-		<h2>Chat ID: {{id}}</h2>
+		<h1><i class="fa fa-wechat"></i> WeChat Conversation</h1>
+		<h2>ID - {{id}}</h2>
 
 		<div class="messages">
 			{{#each data}}
-				<div class="message">
-					<div class="inner {{#if is_self}} right {{else}} left {{/if}}">
-						<div class="text">
-							{{message}}
-						</div>
+				{{#unlessEquals type "system"}}
+					<div class="message {{#if is_self}} right {{else}} left {{/if}}">
+						{{#switch type}}
+							{{#case "text"}}
+								<div class="bubble">
+									{{message}}
+								</div>
+							{{/case}}
+
+							{{#case "sight"}}
+								<div class="bubble activity">
+									<i class="fa fa-eye"></i> Sent a Sight
+								</div>
+							{{/case}}
+
+							{{#case "call"}}
+								<div class="bubble activity">
+									<i class="fa fa-phone"></i> Voice/Video Call
+								</div>
+							{{/case}}
+
+							{{#case "link"}}
+								<div class="bubble activity">
+									<i class="fa fa-link"></i> Shared a Link
+								</div>
+							{{/case}}
+
+							{{#case "location"}}
+								<div class="bubble activity">
+									<i class="fa fa-location"></i> Shared a Location
+								</div>
+							{{/case}}
+
+							{{#case "sticker"}}
+								<div class="bubble activity">
+									<i class="fa fa-smile-o"></i> Shared a Sticker
+								</div>
+							{{/case}}
+
+							{{#case "video"}}
+								<div class="bubble activity">
+									<i class="fa fa-video"></i> Shared a Video
+								</div>
+							{{/case}}
+
+							{{#case "card"}}
+								<div class="bubble activity">
+									<i class="fa fa-book"></i> Shared a Card
+								</div>
+							{{/case}}
+
+							{{#case "voice"}}
+								<div class="bubble activity">
+									<i class="fa fa-volume-up"></i> Voice Message
+								</div>
+							{{/case}}
+
+							{{#case "image"}}
+								<div class="bubble activity">
+									<i class="fa fa-camera"></i> Shared a Photo
+								</div>
+							{{/case}}
+						{{/switch}}
+
 						<div class="time">
 							{{created_at}}
 						</div>
+						
+						<div class="flex"></div>
 					</div>
-				</div>
+				{{/unlessEquals}}
 			{{/each}}
 		</div>
 	</body>
