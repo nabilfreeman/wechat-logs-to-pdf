@@ -12,6 +12,7 @@
     "bluebird": "^3.4.1",
     "bookshelf": "^0.9.5",
     "bookshelf-cascade-delete": "^1.0.4",
+    "bplist-parser": "^0.1.1",
     "dotenv": "^2.0.0",
     "handlebars": "^4.0.5",
     "handlebars-to-pdf": "^1.0.1",
@@ -20,8 +21,11 @@
     "mkdirp": "^0.5.1",
     "moment": "^2.14.1",
     "moment-timezone": "^0.5.5",
+    "plist": "^2.0.1",
     "prompt": "^1.0.0",
     "read-file": "^0.2.0",
+    "recursive-readdir": "^2.0.0",
+    "sha1": "^1.1.1",
     "sqlite3": "^3.1.4"
   }
 }
