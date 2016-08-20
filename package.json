@@ -7,5 +7,16 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "bluebird": "^3.4.1",
+    "bookshelf": "^0.9.5",
+    "bookshelf-cascade-delete": "^1.0.4",
+    "dotenv": "^2.0.0",
+    "handlebars-to-pdf": "^1.0.1",
+    "knex": "^0.11.7",
+    "knex-schema": "^2.1.1",
+    "read-file": "^0.2.0",
+    "sqlite3": "^3.1.4"
+  }
 }
