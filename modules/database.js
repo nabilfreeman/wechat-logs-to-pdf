@@ -1,5 +1,8 @@
 var Promise = require('bluebird');
-var moment = require('moment');
+var moment = require('moment-timezone');
+moment.tz.setDefault("Europe/London");
+
+var chat = require(global.dir + '/modules/chat');
 
 var database = {
 	init: function(){
@@ -46,9 +49,9 @@ var database = {
 					//format data into a more useful structure
 					messages.forEach(function(message){
 						to_return.push({
-							created_at: moment(message.CreateTime).format(),
-							message: message.message,
-							type: message.Type,
+							created_at: moment(message.CreateTime * 1000).format('MMM Do YYYY, HH:mm'),
+							message: message.Message,
+							type: chat.message_types[message.Type],
 							is_self: message.Des === 0 ? true : false
 						});
 					})
