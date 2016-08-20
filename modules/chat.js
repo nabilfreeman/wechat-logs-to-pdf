@@ -7,6 +7,35 @@ var mkdirp = require('mkdirp');
 var Handlebars = require('handlebars');
 var buffer = require('buffer');
 
+Handlebars.registerHelper('ifEquals', function(v1, v2, options) {
+	if(v1 === v2) {
+		return options.fn(this);
+	}
+	
+	return options.inverse(this);
+});
+
+Handlebars.registerHelper('unlessEquals', function(v1, v2, options) {
+	if(v1 !== v2) {
+		return options.fn(this);
+	}
+	
+	return options.inverse(this);
+});
+
+Handlebars.registerHelper("switch", function(value, options) {
+	this._switch_value_ = value;
+	var html = options.fn(this); // Process the body of the switch block
+	delete this._switch_value_;
+	return html;
+});
+
+Handlebars.registerHelper("case", function(value, options) {
+	if (value == this._switch_value_) {
+		return options.fn(this);
+	}
+});
+
 var chat = {
 	message_types: {
 		10000: 	"system",
@@ -37,13 +66,13 @@ var chat = {
 
 	createHTML: function(buffer, template_data){
 		//compile handlebars template and data into raw HTML
-        return new Promise(function(resolve){
-        	var output_html = Handlebars.compile(buffer)(template_data);
+		return new Promise(function(resolve){
+			var output_html = Handlebars.compile(buffer)(template_data);
 
-        	var output_buffer = new Buffer(output_html);
+			var output_buffer = new Buffer(output_html);
 
-        	resolve(output_buffer)
-        });
+			resolve(output_buffer)
+		});
 	},
 
 	createPDF: function(buffer, messages){
