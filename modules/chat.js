@@ -4,6 +4,8 @@ var read = require('read-file');
 var path = require('path');
 var fs = require('fs');
 var mkdirp = require('mkdirp');
+var Handlebars = require('handlebars');
+var buffer = require('buffer');
 
 var chat = {
 	message_types: {
@@ -33,6 +35,17 @@ var chat = {
 		})
 	},
 
+	createHTML: function(buffer, template_data){
+		//compile handlebars template and data into raw HTML
+        return new Promise(function(resolve){
+        	var output_html = Handlebars.compile(buffer)(template_data);
+
+        	var output_buffer = new Buffer(output_html);
+
+        	resolve(output_buffer)
+        });
+	},
+
 	createPDF: function(buffer, messages){
 		return new Promise(function(resolve, reject){
 			PDF.create({
@@ -49,9 +62,9 @@ var chat = {
 		});
 	},
 
-	savePDF: function(buffer, filename){
+	saveFile: function(buffer, filename){
 		var write_directory = path.join(global.dir, 'output');
-		var write_path = path.join(write_directory, filename + '.pdf');
+		var write_path = path.join(write_directory, filename);
 
 		console.log("🕑  Saving " + write_path + '...');
 
@@ -78,10 +91,10 @@ var chat = {
 
 	generate: function(messages){
 		return chat.loadTemplate().then(function(html_buffer){
-			return chat.createPDF(html_buffer, messages);
+			return chat.createHTML(html_buffer, messages);
 
-		}).then(function(pdf_buffer){
-			return chat.savePDF(pdf_buffer, messages.id)
+		}).then(function(html_buffer){
+			return chat.saveFile(html_buffer, messages.id + '.html')
 		})
 	}
 }
